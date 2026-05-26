@@ -1,0 +1,8 @@
+datasus-etl
+pandas
+numpy
+pyarrow
+matplotlib
+seaborn
+scikit-learn
+joblib
