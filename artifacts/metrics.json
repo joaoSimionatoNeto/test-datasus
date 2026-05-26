@@ -1,0 +1,53 @@
+{
+  "fonte_dados": "arquivo_spec",
+  "n_treino": 4491,
+  "n_teste": 1509,
+  "metricas": {
+    "MAE": 609.1771106165035,
+    "RMSE": 767.5013833169586,
+    "R2": 0.9114040122099832,
+    "MAPE": 11.371718619412036
+  },
+  "feature_importance_top10": [
+    {
+      "feature": "tempo_internacao",
+      "importance": 0.3374662314565719
+    },
+    {
+      "feature": "cid_principal_A41",
+      "importance": 0.07028637348597497
+    },
+    {
+      "feature": "cid_principal_I21",
+      "importance": 0.05055739327954682
+    },
+    {
+      "feature": "idade",
+      "importance": 0.04710874045441517
+    },
+    {
+      "feature": "especialidade_CARDIOLOGIA",
+      "importance": 0.04042868739164255
+    },
+    {
+      "feature": "especialidade_ORTOPEDIA",
+      "importance": 0.017311020555238605
+    },
+    {
+      "feature": "cid_principal_S72",
+      "importance": 0.0005646039522897633
+    },
+    {
+      "feature": "cid_principal_N39",
+      "importance": 0.00026457104076726414
+    },
+    {
+      "feature": "especialidade_CIRURGIA_GERAL",
+      "importance": 0.00026149668786943356
+    },
+    {
+      "feature": "cid_principal_J18",
+      "importance": 0.00021476583557217822
+    }
+  ]
+}
