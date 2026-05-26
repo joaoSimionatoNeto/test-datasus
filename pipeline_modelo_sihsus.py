@@ -14,7 +14,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.inspection import permutation_importance
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OrdinalEncoder
 
 
 ROOT = Path(__file__).resolve().parent
@@ -115,7 +115,14 @@ def construir_modelo(num_cols: list[str], cat_cols: list[str]) -> Pipeline:
     cat_pipeline = Pipeline(
         steps=[
             ("imputer", SimpleImputer(strategy="most_frequent")),
-            ("encoder", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
+            (
+                "encoder",
+                OrdinalEncoder(
+                    handle_unknown="use_encoded_value",
+                    unknown_value=-1,
+                    encoded_missing_value=-1,
+                ),
+            ),
         ]
     )
     num_pipeline = Pipeline(steps=[("imputer", SimpleImputer(strategy="median"))])

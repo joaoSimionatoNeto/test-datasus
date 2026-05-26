@@ -6,7 +6,7 @@ Este projeto implementa um fluxo completo para predição de `valor_total_intern
 O pipeline considera:
 - uso da camada `SPEC` em `spec_sih_2025_sp.parquet`;
 - split temporal obrigatório (treino meses 1 a 9, teste meses 10 a 12);
-- pré-processamento com imputação e one-hot encoding;
+- pré-processamento com imputação e codificação ordinal;
 - treinamento de baseline com `HistGradientBoostingRegressor` (fallback recomendado no playbook quando XGBoost/LightGBM não estão disponíveis);
 - geração de artefatos reprodutíveis e visualizações de diagnóstico.
 
@@ -39,8 +39,8 @@ A divisão treino/teste respeita o tempo (`mes_internacao`), reduzindo risco de 
 - Numéricas: mediana (`SimpleImputer(strategy="median")`), robusta a outliers.
 - Categóricas: moda (`SimpleImputer(strategy="most_frequent")`), mantendo a categoria mais estável quando há faltantes.
 
-### 3. One-hot encoding
-As variáveis categóricas são transformadas por `OneHotEncoder(handle_unknown="ignore")`, estratégia adequada para alta cardinalidade e para categorias não vistas no teste.
+### 3. Codificação ordinal para categóricas
+As variáveis categóricas são transformadas por `OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=-1)`, reduzindo o consumo de memória em bases grandes e mantendo robustez para categorias não vistas no teste.
 
 ### 4. Modelo baseline
 Foi utilizado `HistGradientBoostingRegressor` com transformação logarítmica da variável alvo:
@@ -57,7 +57,7 @@ São registradas as métricas pedidas no playbook:
 - MAPE
 
 ### 6. Importância de atributos
-Como `HistGradientBoostingRegressor` não expõe importância direta por coluna original após one-hot, a importância foi calculada por permutação (`permutation_importance`) sobre o conjunto transformado.
+Como `HistGradientBoostingRegressor` não expõe importância direta por coluna original, a importância foi calculada por permutação (`permutation_importance`) sobre o conjunto transformado.
 
 ## Funcionamento ponta a ponta
 1. Carrega `spec_sih_2025_sp.parquet` se disponível.
